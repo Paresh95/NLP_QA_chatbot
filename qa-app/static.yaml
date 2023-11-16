@@ -1,0 +1,10 @@
+hugging_face_model_path: google/flan-t5-base # for better results: google/flan-t5-xl
+local_model_path: data/model
+local_tokenizer_path: data/tokenizer
+compute: auto
+max_new_tokens: 50
+text_splitter:
+  chunk_size: 500
+  chunk_overlap: 200
+hugging_face_embedding_model_path: nreimers/MiniLM-L6-H384-uncased
+vector_store_path: data/vector_store

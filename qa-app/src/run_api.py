@@ -12,7 +12,7 @@ async def create_test_upload_file(file: UploadFile = File(...)):
         buffer.write(file.file.read())
     loader = TextLoader(file.filename)
     document = loader.load()
-    return {"content": document[0].metadata}
+    return {"File loaded": document[0].metadata}
 
 
 @app.post("/upload_file/")
@@ -39,4 +39,4 @@ def main():
 
 
 if __name__ == "__main__":
-    uvicorn.run("test_api:app", reload=True, port=8000, host="0.0.0.0")
+    uvicorn.run("run_api:app", reload=True, port=8000, host="0.0.0.0")
