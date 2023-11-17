@@ -4,7 +4,7 @@ from langchain.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
-from general_utils import read_yaml_config
+from utils.general_utils import read_yaml_config
 
 
 class FaissConnector:
