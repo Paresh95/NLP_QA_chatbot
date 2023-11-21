@@ -1,24 +1,58 @@
-# NLP_QA_chatbot
+# Upload & Query Document using AI
+
+<p align="center">
+  <img src="images/web-app-example.png" />
+</p>
+
+## What is this repository about?
+
+This repository contains code which allows the end user to upload a document to a vector database and query the document using a Large Language Model (LLM). A LLM is a type of machine learning model that can perform a variety of natural language processing (NLP) tasks such as answering questions in a conversational manner.
+
+The project architecture follows the Retrieval Augmented Generation (RAG) framework. This allows the LLM to retrieve facts from an external knowledge base to ground LLMs on the most accurate, up-to-date information.
+
+<p align="center">
+  <img src="images/project-architecture.png" />
+</p>
 
 
+## Key tools used
+- Python: Langchain, Hugging Face Transformers, Sentence Transformers, FAISS, FastAPI
+- Docker
 
-Task:
-Develop API endpoints that accept call transcripts or documents of similar length as input. These endpoints should generate responses to user inquiries based on the content of the documents. For instance, if a user asks, 'What is the client's salary?' and the salary information is mentioned within the call transcript, the system should return that specific detail. Conversely, if the query pertains to information not covered in the transcript, the system should reply with 'This wasn't discussed in the call.' Each uploaded document will be linked to a specific user, necessitating a unique ID for each user. Please provide the complete code with detailed comments. Essentially, we are looking for a simple question-and-answer chatbot. What interests us most is your methodological approach—such as the accuracy of the responses, choice of embeddings, etc.—and the reasoning behind your decisions, like 'Why did you choose this particular chain_type?' Lastly, deploy the application in a way that allows us to test it.
+## How to use?
+
+I am using a 2021 MacBook Pro M1 chip
+
+**To run locally:**
+```
+cd qa-app
+make init
+make get-files
+make run-api
+```
+
+Go to `http://0.0.0.0:8000/` and test.
+
+**To run using docker:**
+
+Open dockerhub
+
+```
+cd qa-app
+make docker-build
+make docker-run
+```
+Go to `http://0.0.0.0:8000/` and test.
 
 
+## Notes
+
+- The default model is `google/flan-t5-base` as it is quick and light weight. However, for better performance update the `parameters.yaml` file with a model like `google/flan-t5-xl` or another from the [text2text-generation](https://huggingface.co/models?sort=trending) models on hugging face. Langchain also supports `text-generation` models. To use these you will need to update the code in `model_utils.py` and `rag_utils.py`.
 
 
-This document appears to be a transcript of a conversation between a financial advisor and a client discussing the client's financial situation and retirement planning. They cover topics such as the client's pension pots, tax implications of withdrawing from the pension, the possibility of the client moving house and needing additional funds, and the client's income and expenditure. The financial advisor provides reassurance that the client is financially independent and can afford to retire without needing to work for money. They also discuss the client's dogs, the weather, and personal updates, reflecting a friendly and personal advisor-client relationship. Towards the end, they plan to follow up after Christmas to reassess the client's financial needs and withdrawals from their pension.
-
-
-To run locally
-
-Create script
-- get python version
-- run poetry
-- run model download file scripts
-
-
-To run in docker
-
-To run in gradio
+## Future work
+- Gradio app
+- Automatically clear database
+- Add citations:
+    - https://github.com/langchain-ai/langchain/blob/master/cookbook/qa_citations.ipynb
+    - https://python.langchain.com/cookbook
