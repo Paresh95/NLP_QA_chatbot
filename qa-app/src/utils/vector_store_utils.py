@@ -75,7 +75,7 @@ class FaissConnector:
 
 
 if __name__ == "__main__":
-    yaml_config = read_yaml_config("static.yaml")
+    yaml_config = read_yaml_config("parameters.yaml")
     hugging_face_embedding_model_path = yaml_config["hugging_face_embedding_model_path"]
     vector_store_path = yaml_config["vector_store_path"]
     document_file_path = yaml_config["test_document_path"]

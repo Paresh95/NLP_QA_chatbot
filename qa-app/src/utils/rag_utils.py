@@ -89,7 +89,7 @@ class RagSystem:
 
 
 if __name__ == "__main__":
-    config = read_yaml_config("static.yaml")
+    config = read_yaml_config("parameters.yaml")
     user_id = 1
     query = "What age might they leave something to their nephews and nieces?"
     results = RagSystem(config=config, user_id=1).run_query(query)

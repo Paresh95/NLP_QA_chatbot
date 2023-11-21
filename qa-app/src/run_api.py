@@ -1,42 +1,25 @@
 import uvicorn
 import uuid
 from fastapi import FastAPI, File, UploadFile, Form
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from utils.vector_store_utils import FaissConnector
 from utils.general_utils import read_yaml_config
 from utils.rag_utils import RagSystem
 
-yaml_config = read_yaml_config("static.yaml")
+yaml_config = read_yaml_config("parameters.yaml")
 hugging_face_embedding_model_path = yaml_config["hugging_face_embedding_model_path"]
 vector_store_path = yaml_config["vector_store_path"]
 chunk_size = yaml_config["text_splitter"]["chunk_size"]
 chunk_overlap = yaml_config["text_splitter"]["chunk_overlap"]
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
 def main():
-    content = """
-    <body>
-    <form action="/upload_file/" enctype="multipart/form-data" method="post">
-    <input name="file" type="file">
-    <input type="submit">
-    </form>
-    <form action="/retrieve_docs/" method="get">
-    <input name="query" type="text">
-    <input name="user_id" type="number">
-    <input type="submit" value="Retrieve Documents">
-    </form>
-    </form>
-    <form action="/query_file/" method="post">
-    <input name="query" type="text">
-    <input name="user_id" type="number">
-    <input type="submit" value="Query Documents">
-    </form>
-    </body>
-    """
-    return HTMLResponse(content=content)
+    return FileResponse("templates/index.html")
 
 
 @app.post("/upload_file/")
@@ -56,13 +39,14 @@ async def upload_file_to_db(file: UploadFile = File(...)):
 
 
 @app.post("/query_file/")
-async def query_file(query: str = Form(...), user_id: int = Form(...)):
+async def query_file(query: str = Form(...), user_id: str = Form(...)):
     try:
         results = RagSystem(config=yaml_config, user_id=user_id).run_query(query)
         data = {
             "User ID": user_id,
             "Question": results["question"],
             "Answer": results["answer"],
+            # "Source Documents": results["source_documents"]
         }
         return data
     except Exception as e:
@@ -70,7 +54,7 @@ async def query_file(query: str = Form(...), user_id: int = Form(...)):
 
 
 @app.get("/retrieve_docs/")
-async def retrieve_documents(query: str, user_id: int):
+async def retrieve_documents(query: str, user_id: str):
     try:
         faiss_connector = FaissConnector(
             hugging_face_embedding_model_path, vector_store_path
