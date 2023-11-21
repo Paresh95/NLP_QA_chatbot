@@ -3,9 +3,9 @@ import uuid
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from utils.vector_store_utils import FaissConnector
-from utils.general_utils import read_yaml_config
-from utils.rag_utils import RagSystem
+from src.utils.vector_store_utils import FaissConnector
+from src.utils.general_utils import read_yaml_config
+from src.utils.rag_utils import RagSystem
 
 yaml_config = read_yaml_config("parameters.yaml")
 hugging_face_embedding_model_path = yaml_config["hugging_face_embedding_model_path"]

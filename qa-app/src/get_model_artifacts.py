@@ -1,5 +1,5 @@
-from utils.general_utils import read_yaml_config
-from utils.model_utils import save_text2text_generation_artifacts
+from src.utils.general_utils import read_yaml_config
+from src.utils.model_utils import save_text2text_generation_artifacts
 
 if __name__ == "__main__":
     yaml_config = read_yaml_config("parameters.yaml")

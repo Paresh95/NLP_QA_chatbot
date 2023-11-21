@@ -6,9 +6,9 @@ from langchain.retrievers.document_compressors.base import DocumentCompressorPip
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
 from langchain.chains import ConversationalRetrievalChain
 from langchain.schema.vectorstore import VectorStoreRetriever
-from utils.model_utils import load_text2text_generation_pipeline
-from utils.vector_store_utils import FaissConnector
-from utils.general_utils import read_yaml_config
+from src.utils.model_utils import load_text2text_generation_pipeline
+from src.utils.vector_store_utils import FaissConnector
+from src.utils.general_utils import read_yaml_config
 
 
 class RagSystem:
