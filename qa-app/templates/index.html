@@ -1,52 +1,80 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Query Document System</title>
-        <link rel="stylesheet" type="text/css" href="static/style.css">
-        <script src="static/script.js" defer></script>
-    </head>
-    <body>
-        <header>
-            <div class="container">
-                <div id="branding">
+<html>
+<head>
+    <title>Query Document System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="static/script.js" defer></script>
+</head>
+<body>
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col">
                     <h1>DocSearch AI</h1>
                 </div>
-                <nav>
-                    <ul>
-                        <li class="current"><a href="/">Home</a></li>
-                    </ul>
-                </nav>
             </div>
-        </header>
-
-        <div class="container">
-            <div class="form-section">
-                <h2>Upload Document</h2>
-                <form id="uploadForm" action="/upload_file/" enctype="multipart/form-data" method="post" onsubmit="handleSubmit('uploadForm', event)">
-                    <input name="file" type="file">
-                    <input type="submit" class="button">
-                </form>
-            </div>
-
-            <div class="form-section">
-                <h2>Retrieve Documents</h2>
-                <form id="retrieveForm" action="/retrieve_docs/" method="get" onsubmit="handleSubmit('retrieveForm', event)">
-                    <input name="query" type="text" placeholder="Enter Query">
-                    <input name="user_id" type="text" placeholder="User ID">
-                    <input type="submit" value="Retrieve Documents" class="button">
-                </form>
-            </div>
-
-            <div class="form-section">
-                <h2>Query Document</h2>
-                <form id="queryForm" action="/query_file/" method="post" onsubmit="handleSubmit('queryForm', event)">
-                    <input name="query" type="text" placeholder="Enter Query">
-                    <input name="user_id" type="text" placeholder="User ID">
-                    <input type="submit" value="Query Documents" class="button">
-                </form>
-            </div>
-
-            <div id="output"></div>
         </div>
-    </body>
-    </html>
+    </header>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Upload Document</h2>
+                        <form id="uploadForm" action="/upload_file/" enctype="multipart/form-data" method="post" onsubmit="handleSubmit('uploadForm', event)">
+                            <div class="form-group">
+                                <input name="file" type="file" class="form-control">
+                            </div>
+                            <input type="submit" value="Upload" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Retrieve Documents</h2>
+                        <form id="retrieveForm" action="/retrieve_docs/" method="get" onsubmit="handleSubmit('retrieveForm', event)">
+                            <div class="form-group">
+                                <input name="query" type="text" placeholder="Enter Query" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input name="user_id" type="text" placeholder="User ID" class="form-control">
+                            </div>
+                            <input type="submit" value="Retrieve" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Query Document</h2>
+                        <form id="queryForm" action="/query_file/" method="post" onsubmit="handleSubmit('queryForm', event)">
+                            <div class="form-group">
+                                <input name="query" type="text" placeholder="Enter Query" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input name="user_id" type="text" placeholder="User ID" class="form-control">
+                            </div>
+                            <input type="submit" value="Query" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="output" class="mt-4 p-3 bg-white rounded shadow-sm"></div>
+    </div>
+</body>
+</html>
