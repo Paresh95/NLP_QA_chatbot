@@ -1,4 +1,4 @@
-# Upload & Query Document using AI
+# Upload & Query Documents using AI
 
 <p align="center">
   <img src="images/web-app-example.png" />
@@ -8,7 +8,7 @@
 
 This repository contains code which allows the end user to upload a document to a vector database and query the document using a Large Language Model (LLM). A LLM is a type of machine learning model that can perform a variety of natural language processing (NLP) tasks such as answering questions in a conversational manner.
 
-The project architecture follows the Retrieval Augmented Generation (RAG) framework. This allows the LLM to retrieve facts from an external knowledge base to ground LLMs on the most accurate, up-to-date information.
+The project architecture follows the Retrieval Augmented Generation (RAG) framework. This allows the LLM to retrieve facts from an external knowledge base to ground the LLM on the most accurate, up-to-date information.
 
 <p align="center">
   <img src="images/project-architecture.png" />
@@ -16,7 +16,10 @@ The project architecture follows the Retrieval Augmented Generation (RAG) framew
 
 
 ## Key tools used
-- Python: Langchain, Hugging Face Transformers, Sentence Transformers, FAISS, FastAPI
+- Python: Langchain, Hugging Face Transformers, Sentence Transformers, FAISS, FastAPI and more
+- HTML
+- CSS
+- Javascript
 - Docker
 
 ## How to use?
