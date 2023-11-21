@@ -1,6 +1,6 @@
 import os
 from typing import List
-from langchain.document_loaders import TextLoader
+from langchain.document_loaders import TextLoader, PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
@@ -14,7 +14,10 @@ class FaissConnector:
 
     @staticmethod
     def _load_document(document_file_path: str) -> List:
-        return TextLoader(document_file_path).load()
+        if document_file_path.endswith(".pdf"):
+            return PyPDFLoader(document_file_path).load()
+        else:
+            return TextLoader(document_file_path).load()
 
     def _chunk_document(
         self, document: List, chunk_size: int, chunk_overlap: int
