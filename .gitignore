@@ -163,3 +163,6 @@ playground/data/model/
 playground/data/tokenizer/
 playground/data/vector_store/
 .DS_Store
+qa-app/data/model/
+qa-app/data/tokenizer/
+qa-app/data/vector_store/
