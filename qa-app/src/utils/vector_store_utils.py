@@ -8,8 +8,8 @@ from utils.general_utils import read_yaml_config
 
 
 class FaissConnector:
-    def __init__(self, embedding_model_path: str, vector_store_path: str):
-        self.embedding_model_path = embedding_model_path
+    def __init__(self, hugging_face_embedding_model_path: str, vector_store_path: str):
+        self.hugging_face_embedding_model_path = hugging_face_embedding_model_path
         self.vector_store_path = vector_store_path
 
     @staticmethod
@@ -54,7 +54,9 @@ class FaissConnector:
         document = self._load_document(document_file_path)
         chunked_documents = self._chunk_document(document, chunk_size, chunk_overlap)
         chunked_documents_with_id = self._add_user_id(chunked_documents, user_id)
-        embedding_model = HuggingFaceEmbeddings(model_name=self.embedding_model_path)
+        embedding_model = HuggingFaceEmbeddings(
+            model_name=self.hugging_face_embedding_model_path
+        )
         if os.path.exists(self.vector_store_path + "/index.faiss"):
             self._add_document_to_existing_db(
                 chunked_documents_with_id, embedding_model
@@ -66,19 +68,23 @@ class FaissConnector:
         return None
 
     def load_db(self) -> FAISS:
-        embedding_model = HuggingFaceEmbeddings(model_name=self.embedding_model_path)
+        embedding_model = HuggingFaceEmbeddings(
+            model_name=self.hugging_face_embedding_model_path
+        )
         return FAISS.load_local(self.vector_store_path, embedding_model)
 
 
 if __name__ == "__main__":
     yaml_config = read_yaml_config("static.yaml")
-    embedding_model_path = yaml_config["hugging_face_embedding_model_path"]
+    hugging_face_embedding_model_path = yaml_config["hugging_face_embedding_model_path"]
     vector_store_path = yaml_config["vector_store_path"]
     document_file_path = yaml_config["test_document_path"]
     user_id = 1
     chunk_size = yaml_config["text_splitter"]["chunk_size"]
     chunk_overlap = yaml_config["text_splitter"]["chunk_overlap"]
-    faiss_connector = FaissConnector(embedding_model_path, vector_store_path)
+    faiss_connector = FaissConnector(
+        hugging_face_embedding_model_path, vector_store_path
+    )
     faiss_connector.add_document(document_file_path, user_id, chunk_size, chunk_overlap)
     db = faiss_connector.load_db()
     print(f"Database chunks: {len(db.docstore._dict)}")

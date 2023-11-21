@@ -1,6 +1,5 @@
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from transformers import pipeline
-from langchain.llms.huggingface_pipeline import HuggingFacePipeline
 from tqdm.auto import tqdm
 
 
@@ -19,7 +18,7 @@ def save_text2text_generation_artifacts(
 
 def load_text2text_generation_pipeline(
     local_model_path: str, local_tokenizer_path: str, device: str, max_new_tokens: int
-) -> HuggingFacePipeline:
+) -> pipeline:
     with tqdm(total=2, desc="Loading Model and Tokenizer") as pbar:
         model = AutoModelForSeq2SeqLM.from_pretrained(local_model_path)
         pbar.update(1)
@@ -32,5 +31,4 @@ def load_text2text_generation_pipeline(
         device_map=device,
         model_kwargs={"max_new_tokens": max_new_tokens},
     )
-    llm = HuggingFacePipeline(pipeline=pipe)
-    return llm
+    return pipe
