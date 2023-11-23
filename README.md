@@ -56,6 +56,7 @@ Go to `http://0.0.0.0:8000/` and test.
 ## Future work
 - Gradio app
 - Automatically clear database
+- Restructure code like:https://colab.research.google.com/github/cohere-ai/notebooks/blob/main/notebooks/RAG_Chatbot_with_Chat_Embed_Rerank.ipynb
 - Add citations:
     - https://github.com/langchain-ai/langchain/blob/master/cookbook/qa_citations.ipynb
     - https://python.langchain.com/cookbook
